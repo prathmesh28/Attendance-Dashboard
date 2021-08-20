@@ -9,15 +9,9 @@ import {
   CForm,
   CInput,
   CInputGroup,
-  CInputGroupPrepend,
-  CInputGroupText,
   CRow,
   CModal,
-  CCardHeader
 } from '@coreui/react'
-// import Loader from "react-loader";
-import CIcon from '@coreui/icons-react'
-import { freeSet } from '@coreui/icons'
 import Firebase from "../config"
 
 
@@ -37,17 +31,17 @@ class Login extends React.Component {
     Firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
     .then((userCredential) => {
       // Signed in 
-      var user = userCredential.user;
-      console.log(user)
+     // var user = userCredential.user;
+      // console.log(user)
       this.setState({loaded:false})
       // ...
     })
     .catch((error) => {
-      var errorCode = error.code;
+    //  var errorCode = error.code;
       var errorMessage = error.message;
-      console.log('check')
-      console.log(errorCode)
-      console.log(errorMessage)
+      // console.log('check')
+      // console.log(errorCode)
+      // console.log(errorMessage)
       this.setState({loaded:false,password:"",error:errorMessage})
 
 
@@ -113,13 +107,13 @@ class Login extends React.Component {
                     <div className="error_response">{this.state.error}</div>
                     <CRow>
                     <CCol  >
-                      <div class="d-flex justify-content-between">
+                      <div className="d-flex justify-content-between">
 
                       
                         <CButton  className="px-0">Forgot password?</CButton>
                      
                         <CButton
-                        style={{backgroundColor:'#424242',color:'#fff'}}
+                        style={{backgroundColor:'#424242',color:'#fff',marginLeft:10}}
                         onClick={this.trySignIn}
                           className="px-4">Login</CButton>
                           </div>
