@@ -14,7 +14,7 @@ class Home extends React.Component {
             if (user) {
                 this.setState({ signedIn:true })
              
-              var uid = user.uid;
+         //     var uid = user.uid;
             //  console.log(uid)
               setTimeout(() => {
                 this.setState({
