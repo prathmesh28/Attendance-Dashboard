@@ -115,13 +115,14 @@ class Login extends React.Component {
                     <CCol  >
                       <div class="d-flex justify-content-between">
 
-                      </div>
+                      
                         <CButton  className="px-0">Forgot password?</CButton>
                      
                         <CButton
                         style={{backgroundColor:'#424242',color:'#fff'}}
                         onClick={this.trySignIn}
                           className="px-4">Login</CButton>
+                          </div>
                       </CCol>
                       
                     </CRow>

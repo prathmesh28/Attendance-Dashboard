@@ -25,11 +25,13 @@ class Dashboard extends React.Component {
       name:'',
       email:'',
       error:'',
-      thisDay:new Date().toISOString().substr(0,10)
+      thisDay:new Date().toISOString().substr(0,10),
+      loading:false
   }
 
-  componentDidMount(){
-    Firebase.database()
+  async componentDidMount(){
+    this.setState({loading:true})
+    await Firebase.database()
       .ref("UsersList/" )
       .on("value", (snapshot) => {
         const users = _.map( snapshot.val(), (e) => {
@@ -37,7 +39,11 @@ class Dashboard extends React.Component {
           })
           
           this.setState({ data:users})
+          setTimeout(() => {
+            this.setState({loading:false})
+        }, 1500) 
       })
+     
   }
 
     dateChange=(e)=>{
@@ -47,6 +53,7 @@ class Dashboard extends React.Component {
 
     logOut
     UserSignUP=()=>{
+      // this.setState({loading:true})
         console.log('check')
         var email = this.state.email
         var name = this.state.name
@@ -85,7 +92,11 @@ class Dashboard extends React.Component {
           ]
         
        
-
+// if(this.state.loading)
+// return<div style={{width:'100vw',height:'100vh',display:'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#F5F5F5',fontSize:30}}>
+// Just a moment...
+// </div>
+//         else 
         return(
             <div style={{justifyContent:'center',backgroundColor:"#F5F5F5",minHeight:'100vh'}}>
                 <div style={{backgroundColor:"#171717",height:'30vh',color:'#fff',fontSize:80,display:'flex',justifyContent:"center",alignItems:"center"}}>
@@ -129,6 +140,7 @@ class Dashboard extends React.Component {
     
        hover
        sorter
+       loading={this.state.loading}
     
 
     scopedSlots = {{
@@ -137,7 +149,7 @@ class Dashboard extends React.Component {
                 <td>
 
                     { 
-                   item.sessions[thisDay]?new Date(item.sessions[thisDay].one.tempDate).toLocaleTimeString():'-'
+                   (item.sessions && item.sessions[thisDay])?(item.sessions[thisDay].one!==undefined?new Date(item.sessions[thisDay].one.tempDate).toLocaleTimeString():'-'):'-'
                
                      }
 
@@ -148,7 +160,7 @@ class Dashboard extends React.Component {
                 <td>
 
                     { 
-                    item.sessions[thisDay]?new Date(item.sessions[thisDay].two.tempDate).toLocaleTimeString():'-'
+                    (item.sessions && item.sessions[thisDay])?(item.sessions[thisDay].two!==undefined?new Date(item.sessions[thisDay].two.tempDate).toLocaleTimeString():'-'):'-'
                
                      }
 
@@ -159,8 +171,9 @@ class Dashboard extends React.Component {
                 <td>
 
                     { 
-                    item.sessions[thisDay]?new Date(item.sessions[thisDay].three.tempDate).toLocaleTimeString():'-'
-               
+                    
+                    (item.sessions && item.sessions[thisDay])?(item.sessions[thisDay].three!==undefined?new Date(item.sessions[thisDay].three.tempDate).toLocaleTimeString():'-'):'-'
+                    
                      }
 
                 </td>
