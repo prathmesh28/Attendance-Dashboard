@@ -118,7 +118,7 @@ class Dashboard extends React.Component {
                     size="lg">Add new Staff</CButton>
 
               <CButton style={{backgroundColor:'#424242',color:'#fff'}} 
-                    onClick={() => this.setState({ form:true, error:'', name:'' })} 
+                  //  onClick={() => this.setState({ form:true, error:'', name:'' })} 
                     size="lg">View/Edit Staff</CButton>
 
                 <CInput defaultValue={this.state.thisDay} 
